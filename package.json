@@ -5,25 +5,19 @@
   "main": "app/electron/main.js",
   "scripts": {
     "start": "electron ./app/electron/main.js",
-    "pack": "electron-builder --dir",
-    "dist": "electron-builder"
+    "build-mac": "rm -rf ./app/node_modules && electron-builder build --mac",
+    "build-linux": "rm -rf ./app/node_modules && electron-builder build --linux",
+    "build-win": "rm -rf ./app/node_modules && electron-builder build --win"
   },
   "author": "Bruno Moreira",
-  "license": "ISC",
-  "dependencies": {
-    "@cliqz/adblocker-electron": "^1.14.4",
-    "ffmpeg-static": "^4.2.1",
-    "ffprobe-static": "^3.0.0",
-    "fluent-ffmpeg": "^2.1.2",
-    "node-fetch": "^2.6.0",
-    "url-regex": "^5.0.0"
-  },
+  "license": "MIT",
   "devDependencies": {
     "electron": "^9.0.0",
     "electron-builder": "^22.7.0"
   },
   "build": {
     "appId": "com.dlvideo.app",
+    "productName": "DLVideo",
     "files": [
       "**/*",
       "!**/node_modules/*/{CHANGELOG.md,README.md,README,readme.md,readme}",
@@ -49,10 +43,16 @@
         {
           "target": "nsis",
           "arch": [
-            "x64"
+            "ia32"
           ]
         }
       ]
+    },
+    "nsis": {
+      "oneClick": false,
+      "allowToChangeInstallationDirectory": true,
+      "artifactName": "${productName} ${version}.${ext}",
+      "runAfterFinish": false
     }
   }
 }
