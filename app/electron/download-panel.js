@@ -35,6 +35,6 @@ exports = module.exports = async function (win) {
 
     DownloadPanel.setBounds({ x: 0, y: 0, width: 0, height: win.getContentBounds().height });
     DownloadPanel.setAutoResize({ width: true, height: true, horizontal: true });
-    await DownloadPanel.webContents.loadFile('../pages/download-panel.html');
+    await DownloadPanel.webContents.loadFile(path.join(__dirname, '../pages/download-panel.html'));
     return DownloadPanel;
 }

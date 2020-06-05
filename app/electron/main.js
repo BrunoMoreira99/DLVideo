@@ -28,7 +28,7 @@ async function createWindow () {
     const view = await initBrowserView(win);
     const DownloadPanel = await initDownloadPanel(win);
     ScrappedVideos = initVideoScrapper(win, view, DownloadPanel);
-    await win.webContents.loadFile('../pages/home.html');
+    await win.webContents.loadFile(path.join(__dirname, '../pages/home.html'));
 
     ipcMain.on('OpenPage', async (e, input) => {
         try {
@@ -40,7 +40,7 @@ async function createWindow () {
             win.addBrowserView(DownloadPanel);
             view.setBounds({ x: 0, y: 0, width: win.getContentBounds().width, height: win.getContentBounds().height - 70 });
             view.setAutoResize({ width: true, height: true });
-            await win.webContents.loadFile('../pages/browser-view.html');
+            await win.webContents.loadFile(path.join(__dirname, '../pages/browser-view.html'));
 
             if (url.host.includes('reddit.com')) url.host = 'old.reddit.com';
             await view.webContents.loadURL(url.href);
@@ -50,7 +50,7 @@ async function createWindow () {
     });
 
     ipcMain.on('ReturnHome', async () => {
-        await win.webContents.loadFile('../pages/home.html');
+        await win.webContents.loadFile(path.join(__dirname, '../pages/browser-view.html'));
         win.setBrowserView(null);
         ScrappedVideos.clear();
     });
