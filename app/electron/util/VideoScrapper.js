@@ -17,23 +17,28 @@ exports = module.exports = function(win, view, DownloadPanel) {
                 const video = new Video(data);
                 await video.extractMetadata();
                 if (!video.videoStream && video.audioStream) {
-                    this.audioStreams.push(video);
-                    this.forEach((value, key) => {
-                        if (value.audioStream && !value._altAudio) return;
+                    const audio = video;
+                    this.audioStreams.push(audio);
+                    this.forEach((video, src) => {
+                        if (video.audioStream && !video._altAudio) return;
                         // If the video already has an audio stream, ignore it, but, if it's using an alt audio stream,
                         // check if the this audio stream is a better fit for it.
                         // Or use this audio stream if the video has no audio stream at all, be it its own or an alt.
-                        if (value.source.startsWith(video.source.lastIndexOf('/')) || !value._altAudio) {
-                            value.useAltAudioStream(video);
-                            DownloadPanel.webContents.send('SetVideoAudioStream', key, video.serialize());
+                        if (video.source.startsWith(audio.source.substring(0, audio.source.lastIndexOf('/'))) || (!video.source.includes('v.redd.it') && !video._altAudio)) {
+                            video.useAltAudioStream(audio);
+                            DownloadPanel.webContents.send('SetVideoAudioStream', src, audio.serialize());
                         }
                     });
                     return this;
                 } else if (video.videoStream && !video.audioStream && this.audioStreams.length) {
                     // If video doesn't have an audio stream but there's at least one audio stream-only available,
                     // find the best fit for this video or if none found, the first in the audioStreams array.
-                    const audioStream = this.audioStreams.find((s) => s.source.startsWith(video.source.substring(0, video.source.lastIndexOf('/')))) || this.audioStreams[0];
-                    video.useAltAudioStream(audioStream);
+                    // Note: Reddit must always match URL (except file).
+                    const audioStream = this.audioStreams.find((a) => video.source.startsWith(a.source.substring(0, a.source.lastIndexOf('/'))));
+                    if (audioStream) video.useAltAudioStream(audioStream);
+                    else if (!video.source.includes('v.redd.it')) {
+                        video.useAltAudioStream(this.audioStreams[0]);
+                    }
                 }
                 super.set(video.source, video);
                 DownloadPanel.webContents.send('AddNewVideo', video.serialize());
@@ -58,6 +63,7 @@ exports = module.exports = function(win, view, DownloadPanel) {
                 if (value === null) return super.delete(key);
                 if (!value.isUnderDownload) this.delete(key);
             }, this);
+            this.audioStreams = [];
             win.webContents.send('SetVideoCount', this.size);
         }
 

@@ -1,5 +1,6 @@
 const { BrowserView, ipcMain } = require('electron');
 const path = require('path');
+const { URL } = require('url');
 const initAdBlocker = require('./util/AdBlocker');
 
 exports = module.exports = async function (win) {
@@ -51,6 +52,15 @@ exports = module.exports = async function (win) {
                 all: initial !important;
             }`
         );
+    });
+
+    view.webContents.on('will-navigate', (e, url) => {
+        if (url.includes('reddit.com')) {
+            e.preventDefault();
+            url = new URL(url);
+            url.host = 'old.reddit.com';
+            view.webContents.loadURL(url.href);
+        }
     });
 
     view.webContents.on('new-window', (e) => {
