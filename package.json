@@ -1,0 +1,22 @@
+{
+  "name": "dlvideo",
+  "version": "1.0.0",
+  "description": "Crawls a website for any video files.",
+  "main": "app/electron/main.js",
+  "scripts": {
+    "start": "electron ./app/electron/main.js"
+  },
+  "author": "Bruno Moreira",
+  "license": "ISC",
+  "dependencies": {
+    "@cliqz/adblocker-electron": "^1.14.4",
+    "ffmpeg-static": "^4.2.1",
+    "ffprobe-static": "^3.0.0",
+    "fluent-ffmpeg": "^2.1.2",
+    "node-fetch": "^2.6.0",
+    "url-regex": "^5.0.0"
+  },
+  "devDependencies": {
+    "electron": "^9.0.0"
+  }
+}

@@ -1,0 +1,18 @@
+@import "fonts/roboto@font-face.css";
+
+html {
+    font-family: Roboto,Helvetica,Arial,sans-serif;
+    font-size: 100%;
+}
+
+body {
+    margin: 0;
+    background: #20232a;
+    color: #dcddde;
+    font-family: inherit;
+    font-size: 16px;
+}
+
+html, body {
+    height: 100%;
+}

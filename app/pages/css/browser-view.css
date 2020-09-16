@@ -1,0 +1,83 @@
+body {
+    display: flex;
+    flex-direction: column;
+}
+
+.container {
+    margin: auto;
+    cursor: default;
+    user-select: none;
+}
+
+footer {
+    width: 100%;
+    background: #20232a;
+    position: absolute;
+    bottom: 0;
+    z-index: 1;
+}
+
+footer .content {
+    padding: 15px 25px;
+    font-weight: 300;
+    cursor: default;
+    user-select: none;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: #fff;
+}
+
+footer .content p {
+    flex: 1;
+    margin: 0;
+}
+
+footer .page-controls {
+    display: flex;
+    flex-direction: row;
+}
+
+footer .page-controls svg {
+    fill: #fff;
+    height: 24px;
+    margin: 0 0.8vw;
+    transition: background-color .2s ease-out, opacity 150ms ease-out, fill 150ms ease-out;
+    padding: 8px;
+    border-radius: 4px;
+}
+
+footer .page-controls svg:hover {
+    background-color: rgba(255, 255, 255, 0.15);
+}
+
+footer .page-controls svg.disabled {
+    background-color: transparent;
+    opacity: 0.25;
+    pointer-events: none;
+}
+
+footer .page-controls svg.success {
+    fill: #23CE6B;
+}
+
+footer .page-controls svg.failure {
+    fill: #D64045;
+}
+
+#videos_found {
+    cursor: pointer;
+    background: #61dafb;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 3px;
+    color: #000;
+    font-weight: 400;
+    font-size: 17px;
+    transition: background-color .2s ease-out;
+    margin-left: 3vw;
+}
+
+#videos_found:hover {
+    background: #fff;
+}

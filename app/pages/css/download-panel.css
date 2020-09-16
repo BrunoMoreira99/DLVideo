@@ -1,0 +1,229 @@
+html, body {
+    background: transparent;
+}
+
+body {
+    display: flex;
+    overflow-x: hidden;
+    user-select: none;
+}
+
+::-webkit-scrollbar {
+    width: 9px;
+}
+::-webkit-scrollbar-thumb {
+    background-color: rgba(85, 89, 94, 1);
+    background-clip: padding-box;
+    border: 3px solid rgba(0, 0, 0, 0);
+    border-radius: 7px;
+}
+::-webkit-scrollbar-thumb:hover {
+    background-color: #61dafb;
+}
+::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.container {
+    display: flex;
+    flex-basis: 100%;
+    flex-direction: column;
+    min-width: 550px;
+    max-width: 550px;
+    background: #1a1c22;
+    border-right: 10px solid #36393f;
+    box-sizing: border-box;
+    padding: 15px;
+    position: relative;
+    left: -100%;
+    transition: left 500ms ease-out;
+    overflow-y: overlay;
+}
+
+body.active > .container {
+    left: 0;
+}
+
+.outside_area {
+    flex: 1;
+}
+
+.no_videos {
+    margin: auto;
+    cursor: default;
+    text-align: center;
+}
+
+.no_videos h1 {
+    font-weight: 300;
+    font-size: 28pt;
+    text-shadow: 3px 2px black;
+    margin: 10px;
+}
+
+.no_videos h2 {
+    font-weight: 200;
+    font-size: 12pt;
+    margin: 0;
+    text-shadow: 3px 2px black;
+}
+
+.video_component {
+    background: linear-gradient(to right, #23CE6B 50%, #374556 50%);
+    background-size: 200% 100%;
+    background-position-x: 100%;
+    transition: background .5s linear;
+    margin-bottom: 15px;
+    padding: 3px;
+    border-radius: 3px;
+}
+
+.video_component.download-error {
+    background: linear-gradient(to right, #D64045 50%, #374556 50%);
+    background-size: 200% 100%;
+    background-position-x: left !important;
+}
+
+.video_component.download-complete {
+    background-position-x: left !important;
+}
+
+.video_component .content {
+    display: flex;
+    background: #374556;
+    padding: 7px;
+    border-radius: 3px;
+}
+
+.video_component .thumbnail_container {
+    display: flex;
+    flex-direction: column;
+    margin-right: 5px;
+}
+
+.video_component .thumbnail_container > span {
+    text-align: center;
+}
+
+.video_component .thumbnail {
+    width: 128px;
+    height: 72px;
+    object-fit: cover;
+    background-color: #61dafb;
+    border: 1px solid #1a1c22;
+    margin-bottom: 4px;
+}
+
+.video_component .more_info {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    justify-content: space-between;
+    overflow: hidden;
+}
+
+.video_component span {
+    font-size: 10pt;
+    padding: 3px 6px;
+    background-color: #1a1c22;
+    border-radius: 3px;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+}
+
+.video_component span:last-child {
+    margin-bottom: 0;
+}
+
+.video_component span.filename {
+    color: #61dafb;
+}
+
+.video_component .row {
+    display: flex;
+    align-items: flex-end;
+}
+
+.video_component .row span {
+    margin-right: 5px;
+}
+
+.video_component .row span:last-child {
+    margin-right: 0;
+}
+
+.video_component .btn {
+    display: inline-flex;
+    margin-left: 5px;
+    justify-content: flex-end;
+    align-items: center;
+    cursor: pointer;
+}
+
+.video_component .btn > svg {
+    fill: #dcddde;
+    height: 18px;
+    transition: all 150ms ease-out;
+    pointer-events: none;
+}
+
+.video_component .btn:hover > svg,
+.video_component .btn.active > svg {
+    fill: #61dafb;
+}
+
+.video_component .btn.success > svg {
+    fill: #23CE6B;
+}
+
+.video_component .btn.failure > svg {
+    fill: #D64045;
+}
+
+.video_component .download-status {
+    display: flex;
+    flex: 1;
+    justify-content: flex-end;
+}
+
+.video_component.download-in-progress .download-status {
+    align-self: stretch;
+}
+
+.video_component .download-status > span {
+    flex: 1;
+    text-align: center;
+}
+
+.video_component .download-status > span:last-of-type {
+    margin-right: 0;
+}
+
+.video_component.download-error .btn.error,
+.video_component.download-complete .btn.complete,
+.video_component.download-in-progress .btn.pause,
+.video_component.download-in-progress .btn.cancel {
+    display: inline-flex;
+}
+
+.video_component.download-in-progress .status,
+.video_component.download-in-progress .received {
+    display: inline;
+}
+
+.video_component .status,
+.video_component .received,
+.video_component .btn.error,
+.video_component .btn.cancel,
+.video_component .btn.pause,
+.video_component .btn.complete,
+.video_component.download-error .btn.download,
+.video_component.download-complete .btn.download,
+.video_component.download-in-progress .btn.download {
+    display: none;
+}
+
+.video_component .btn.disabled {
+    cursor: default;
+}
