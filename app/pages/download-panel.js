@@ -143,16 +143,21 @@ container.addEventListener('click', async (e) => {
     if (e.target.matches('.btn.download')) {
         e.target.classList.add('disabled');
         const downloadStarted = await window.api.startVideoDownload(e.target.closest('.video_component').getAttribute('data-src'));
-        if (!downloadStarted) e.target.classList.remove('disabled');
+        if (downloadStarted) {
+            const video_component = e.target.closest('.video_component');
+            video_component.querySelector('.download-status .status').innerText = 'Downloading';
+        } else {
+            e.target.classList.remove('disabled');
+        }
     } else if (e.target.matches('.btn.pause')) {
         const video_component = e.target.closest('.video_component');
         const res = await window.api.pauseVideoDownload(video_component.getAttribute('data-src'));
         if (res === 1) {
-            video_component.querySelector('.download-status .status').innerText = 'Paused'
+            video_component.querySelector('.download-status .status').innerText = 'Paused';
             e.target.classList.add('active');
             e.target.title = 'Resume Download';
         } else if (res === 2) {
-            video_component.querySelector('.download-status .status').innerText = 'Downloading'
+            video_component.querySelector('.download-status .status').innerText = 'Downloading';
             e.target.classList.remove('active');
             e.target.title = 'Pause Download';
         }

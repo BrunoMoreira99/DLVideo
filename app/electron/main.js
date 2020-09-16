@@ -50,7 +50,7 @@ async function createWindow () {
     });
 
     ipcMain.on('ReturnHome', async () => {
-        await win.webContents.loadFile(path.join(__dirname, '../pages/browser-view.html'));
+        await win.webContents.loadFile(path.join(__dirname, '../pages/home.html'));
         win.setBrowserView(null);
         ScrappedVideos.clear();
     });
